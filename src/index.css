@@ -12,3 +12,21 @@ h1, h2, h3, h4, h5, h6 {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+.button {
+  outline: none;
+  cursor: pointer;
+  padding: 8px 15px;
+  background: dodgerblue;
+  border: none;
+  border-radius: 2px;
+  color: white;
+}
+
+.button:disabled {
+  background-color: lightblue;
+}
+
+.button:active {
+  background-color: deepskyblue;
+}
