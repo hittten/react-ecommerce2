@@ -1,0 +1,30 @@
+.product-create h1 {
+  text-align: center;
+}
+.product-create form {
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.product-create form label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.product-create form input,
+.product-create form textarea {
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 5px;
+  width: 100%;
+}
+
+.product-create form textarea {
+  height: 100px;
+}
+
+.product-create form span {
+  font-size: 12px;
+  color: red;
+}
