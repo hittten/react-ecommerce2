@@ -1,5 +1,7 @@
 import './ProductList.css';
 import * as React from "react";
+import {uppercase} from "../utils/uppercase";
+import {euroCurrency} from "../utils/euro-currency";
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -26,13 +28,13 @@ class ProductList extends React.Component {
         <ul className={this.state.gridView ? 'grid' : ''}>
           {this.props.products.map(product =>
             <li key={product.id}>
-              <h2>{product.name}</h2>
+              <h2>{uppercase(product.name)}</h2>
               <img src={product.image} alt={product.name}/>
               <p>
                 ({new Date(product.createdAt).toLocaleDateString()})
                 - {product.description.length > 150 ? product.description.slice(0, 150) + '...' : product.description}
               </p>
-              <div className="price">{product.price} €</div>
+              <div className="price">{euroCurrency(product.price)}</div>
               <div>
                 <button className="button">add to cart</button>
               </div>
