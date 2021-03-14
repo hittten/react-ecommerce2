@@ -1,14 +1,22 @@
 import './App.css';
 import Header from "./header/Header";
-import ProductList from "./product-list/ProductList";
-import {PRODUCTS} from "./mock-products";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Products from "./pages/Products";
+import ShoppingCart from "./pages/ShoppingCart";
 
 function App() {
   return (
-    <div className="App">
+    <Router>
       <Header/>
-      <ProductList products={PRODUCTS}/>
-    </div>
+      <Switch>
+        <Route exact path="/">
+          <Products/>
+        </Route>
+        <Route path="/shopping-cart">
+          <ShoppingCart/>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

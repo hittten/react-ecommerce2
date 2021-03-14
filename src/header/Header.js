@@ -1,5 +1,6 @@
 import './Header.css';
 import * as React from "react";
+import {Link} from "react-router-dom";
 
 class Header extends React.Component {
   constructor(props) {
@@ -19,19 +20,25 @@ class Header extends React.Component {
         <nav>
           <ul>
             <li onClick={() => this.openNav(false)}>
-              <span className="material-icons">view_list</span> Products
+              <Link to="/">
+                <span className="material-icons">view_list</span> Products
+              </Link>
             </li>
             <li onClick={() => this.openNav(false)}>
-              <span className="material-icons">shopping_cart</span> Car
+              <Link to="/shopping-cart">
+                <span className="material-icons">shopping_cart</span> Car
+              </Link>
             </li>
           </ul>
         </nav>
         <div>
           React Ecommerce
         </div>
-        <span className="material-icons" onClick={() => this.openNav(false)}>
-          shopping_cart
-        </span>
+        <Link to="/shopping-cart">
+          <span className="material-icons" onClick={() => this.openNav(false)}>
+            shopping_cart
+          </span>
+        </Link>
       </header>
     );
   }

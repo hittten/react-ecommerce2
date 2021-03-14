@@ -13,6 +13,10 @@ header > span.material-icons {
   cursor: pointer;
 }
 
+header a {
+  color: white;
+}
+
 header nav {
   display: none;
 }
@@ -38,11 +42,13 @@ header ul {
   list-style: none;
 }
 
-header ul li {
+header ul li a {
   display: flex;
   padding: 10px;
   cursor: pointer;
   align-items: center;
+  text-decoration: none;
+  color: black;
 }
 
 header ul li:hover {
