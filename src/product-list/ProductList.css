@@ -4,6 +4,12 @@
 
 .product-list .views span {
   margin-right: 5px;
+  cursor: pointer;
+}
+
+.product-list .views .selected {
+  border: 1px solid darkgray;
+  background: lightgrey;
 }
 
 .product-list ul {
@@ -45,4 +51,23 @@
 .product-list ul li .price {
   font-size: 16px;
   font-weight: bold;
+}
+
+/*grid view*/
+ul.grid {
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+}
+
+ul.grid li {
+  display: block;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+ul.grid li img {
+  max-width: none;
+}
+
+ul.grid li p {
+  display: none;
 }
