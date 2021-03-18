@@ -6,9 +6,10 @@ function ShoppingCart() {
     <div className="wrapper">
       <h1>Shopping Cart</h1>
       <ProductList
-        products={productService.listShoppingCart()}
+        products={productService.listShoppingCart}
         buttonText="remove from shopping cart"
         handleButtonClick={productService.removeFromShoppingCart}
+        update={true}
       />
     </div>
   );

@@ -11,6 +11,7 @@ class CreateProduct extends React.Component {
         price: '',
         description: '',
       },
+      sending: false,
       error: {},
     };
 
@@ -49,19 +50,24 @@ class CreateProduct extends React.Component {
       return
     }
 
+    this.setState({sending: true})
     productService.create({...this.state.form, image: this.fileInput.current.files[0]})
+      .then(() => {
+        this.setState({
+          form: {
+            name: '',
+            price: '',
+            description: '',
+          },
+          error: {},
+          sending: false,
+        })
 
-    this.setState({
-      form: {
-        name: '',
-        price: '',
-        description: '',
-      },
-      error: {},
-    })
-
-    event.target.reset()
-    this.fileInput.current.files = null;
+        event.target.reset()
+        this.fileInput.current.files = null;
+      })
+      .catch(error => this.setState({error: {form: error.message}}))
+      .finally(() => this.setState({sending: false}))
   }
 
   render() {
@@ -85,7 +91,7 @@ class CreateProduct extends React.Component {
               <input
                 onChange={this.handleInputChange}
                 value={this.state.form.price}
-                name="price" type="number"  required/>
+                name="price" type="number" required/>
             </label>
             {this.state.error.price ? <span>{this.state.error.price}</span> : ''}
           </p>
@@ -104,8 +110,9 @@ class CreateProduct extends React.Component {
             </label>
           </p>
           <p>
-            <button className="button" type="submit">Save</button>
+            <button disabled={this.state.sending} className="button" type="submit">Save</button>
           </p>
+          <span>{this.state.error.form ? <span>{this.state.error.form}</span> : ''}</span>
         </form>
       </div>
     );
