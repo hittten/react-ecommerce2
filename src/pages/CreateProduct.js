@@ -60,7 +60,6 @@ class CreateProduct extends React.Component {
             description: '',
           },
           error: {},
-          sending: false,
         })
 
         event.target.reset()
