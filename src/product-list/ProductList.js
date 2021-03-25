@@ -1,28 +1,24 @@
 import './ProductList.css';
-import {useState, useEffect} from "react"
+import {useEffect} from "react"
 import {uppercase} from "../utils/uppercase";
 import {euroCurrency} from "../utils/euro-currency";
 import {ReactComponent as Loading} from '../assets/spinner.svg';
+import {useDispatch, useSelector} from "react-redux";
+import {
+  listView,
+  gridView,
+  load,
+  selectProducts,
+  remove
+} from "./productsReducer";
 
 function ProductList(props) {
-  const [gridView, setGridView] = useState(false)
-  const [error, setError] = useState(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [products, setProducts] = useState([])
+  const dispatch = useDispatch();
+  const store = useSelector(selectProducts)
 
   useEffect(() => {
-    props.products()
-      .then(
-        (result) => {
-          setIsLoaded(true)
-          setProducts(result)
-        },
-        (error) => {
-          setIsLoaded(false)
-          setError(error)
-        }
-      )
-  }, [props, props.products])
+    dispatch(load(props.products))
+  }, [dispatch, props.products])
 
   function handleButtonClick(e, product, index) {
     e.target.disabled = true
@@ -35,9 +31,7 @@ function ProductList(props) {
 
     props.handleButtonClick(product)
       .then(() => {
-        const newProducts = [...products];
-        newProducts.splice(index, 1)
-        setProducts(newProducts)
+        dispatch(remove(index))
       })
       .finally(() => {
         e.target.disabled = false
@@ -47,19 +41,19 @@ function ProductList(props) {
   return (
     <div className="product-list">
       <div className="views">
-          <span className={`material-icons ${!gridView ? 'selected' : ''}`}
-                onClick={() => setGridView(false)}>
+          <span className={`material-icons ${!store.gridView ? 'selected' : ''}`}
+                onClick={() => dispatch(listView())}>
             view_list
           </span>
-        <span className={`material-icons ${gridView ? 'selected' : ''}`}
-              onClick={() => setGridView(true)}>
+        <span className={`material-icons ${store.gridView ? 'selected' : ''}`}
+              onClick={() => dispatch(gridView())}>
             view_module
           </span>
       </div>
-      <ul className={gridView ? 'grid' : ''}>
-        {error ? <div>Error: {error.message}</div> :
-          !isLoaded ? <Loading/> :
-            products.map((product, index) =>
+      <ul className={store.gridView ? 'grid' : ''}>
+        {store.error ? <div>Error: {store.error.message}</div> :
+          !store.isLoaded ? <Loading/> :
+            store.list.map((product, index) =>
               <li key={index}>
                 <h2>{uppercase(product.name)}</h2>
                 <img src={product.image} alt={product.name}/>
